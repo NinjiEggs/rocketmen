@@ -2,6 +2,7 @@ extends RigidBody3D
 
 @export var projectileSpeed : float = 60
 @onready var bombAOE := preload("res://Projectiles/BombAOE.tscn")
+var originalParent
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,14 +14,18 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	position += transform.basis * Vector3(0, projectileSpeed, 0) * delta
 
+func spawnAOE() -> void:
+	var AOEtoSpawn = bombAOE.instantiate()
+	$".".add_child(AOEtoSpawn)
+	AOEtoSpawn.originalParent = originalParent
+	$CollisionKillDelay.start()
+
 func _on_lifespan_timeout() -> void:
-	queue_free()
+	spawnAOE()
 
 
 func _on_body_entered(body: Node) -> void:
-	var AOEtoSpawn = bombAOE.instantiate()
-	$".".add_child(AOEtoSpawn)
-	$CollisionKillDelay.start()
+	spawnAOE()
 
 
 func _on_collision_kill_delay_timeout() -> void:

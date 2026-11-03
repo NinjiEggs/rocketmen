@@ -3,6 +3,7 @@ extends Node3D
 var firstGrowthCycleFinished : bool = false
 @onready var AOEMesh : MeshInstance3D = $BombAOEMesh
 @onready var Hurtbox : Area3D = $Hurtbox
+var originalParent
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -19,3 +20,8 @@ func _process(delta: float) -> void:
 
 func _on_life_span_timeout() -> void:
 	queue_free()
+
+
+func _on_hurtbox_body_entered(body: Node3D) -> void:
+	if body == originalParent:
+		pass

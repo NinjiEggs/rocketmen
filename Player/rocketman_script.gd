@@ -16,6 +16,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("Shoot"):
 		var bombToSpawn = Bomb.instantiate()
 		bombProjectileSpawn.add_child(bombToSpawn)
+		bombToSpawn.originalParent = $"."
 		
 	# Add the gravity.
 	if not is_on_floor():
