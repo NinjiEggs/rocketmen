@@ -8,8 +8,15 @@ var currentAirJumps : int = maxAirJumps
 var cameraMovement : bool = true
 var moveDisabled : bool = false
 @onready var Camera := $CameraPivot/Camera3D
+@onready var Bomb := preload("res://Projectiles/Bomb.tscn")
+@onready var bombProjectileSpawn := $CannonPivot/Cannon/CannonProjectileSpawn
 
 func _physics_process(delta: float) -> void:
+	
+	if Input.is_action_just_pressed("Shoot"):
+		var bombToSpawn = Bomb.instantiate()
+		bombProjectileSpawn.add_child(bombToSpawn)
+		
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta

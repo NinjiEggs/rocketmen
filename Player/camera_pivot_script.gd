@@ -4,7 +4,7 @@ extends Node3D
 @export_range(-90.0, 0.0, 0.1, "radians_as_degrees") var minVerticalAngle : float = -PI/2
 @export_range(0.0, 90.0, 0.1, "radians_as_degrees") var maxVerticalAngle : float = PI/4
 
-@onready var springArm := $SpringArm3D
+@onready var springArm : SpringArm3D = $SpringArm3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

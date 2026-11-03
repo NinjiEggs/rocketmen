@@ -15,6 +15,7 @@
 [sub_resource type="CylinderMesh" id="CylinderMesh_vtawm"]
 
 [node name="Rocketman" type="CharacterBody3D" unique_id=2015102740]
+collision_mask = 6
 script = ExtResource("1_uk33d")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=515430107]
@@ -40,11 +41,11 @@ script = ExtResource("3_as8yk")
 springArm = NodePath("../SpringArm3D/SpringPosition")
 
 [node name="CannonPivotRotator" type="Node3D" parent="." unique_id=1864296044]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33278942, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.661137, 0)
 script = ExtResource("4_vtawm")
 
 [node name="CannonPivot" type="Node3D" parent="." unique_id=950363587]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.333, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.66134757, 0)
 script = ExtResource("5_2341e")
 
 [node name="Cannon" type="MeshInstance3D" parent="CannonPivot" unique_id=1139883709]

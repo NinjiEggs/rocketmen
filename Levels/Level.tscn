@@ -20,6 +20,8 @@ ambient_light_color = Color(0.40337542, 0.32505006, 0.47829723, 1)
 
 [node name="LevelFloor" type="StaticBody3D" parent="." unique_id=1833624777]
 transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
+collision_layer = 2
+collision_mask = 5
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="LevelFloor" unique_id=1229443153]
 mesh = SubResource("BoxMesh_a8avo")
@@ -40,6 +42,8 @@ transform = Transform3D(-0.5205065, -0.59533507, -0.6120859, -0.85385776, 0.3629
 
 [node name="Box" type="StaticBody3D" parent="." unique_id=1343625520]
 transform = Transform3D(4.265, 0, 0, 0, 4.265, 0, 0, 0, 4.265, -21.137241, 2.4855394, 0)
+collision_layer = 2
+collision_mask = 5
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Box" unique_id=1158062137]
 mesh = SubResource("BoxMesh_a8avo")
@@ -49,6 +53,8 @@ shape = SubResource("BoxShape3D_soy7k")
 
 [node name="Box2" type="StaticBody3D" parent="." unique_id=158635325]
 transform = Transform3D(4.265, 0, 0, 0, 4.265, 0, 0, 0, 4.265, 33.292564, 2.4855394, 0)
+collision_layer = 2
+collision_mask = 5
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Box2" unique_id=1183926338]
 mesh = SubResource("BoxMesh_a8avo")

@@ -1,3 +1,26 @@
 [gd_scene format=3 uid="uid://cx4rpappv3sv"]
 
-[node name="BombAOE" type="MeshInstance3D" unique_id=1423720252]
+[ext_resource type="Script" uid="uid://c2m80bmyfjvcl" path="res://Projectiles/bomb_aoe_script.gd" id="1_7c8jp"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_8rfpd"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_soy7k"]
+
+[node name="BombAOE" type="Node3D" unique_id=262648762]
+script = ExtResource("1_7c8jp")
+
+[node name="BombAOEMesh" type="MeshInstance3D" parent="." unique_id=1423720252]
+transform = Transform3D(3.695, 0, 0, 0, 3.695, 0, 0, 0, 3.695, 0, 0, 0)
+mesh = SubResource("SphereMesh_8rfpd")
+
+[node name="Hurtbox" type="Area3D" parent="." unique_id=1307055847]
+transform = Transform3D(4.56, 0, 0, 0, 4.56, 0, 0, 0, 4.56, 0, 0, 0)
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=38626770]
+shape = SubResource("SphereShape3D_soy7k")
+
+[node name="LifeSpan" type="Timer" parent="." unique_id=1364392899]
+wait_time = 0.5
+
+[connection signal="timeout" from="LifeSpan" to="." method="_on_life_span_timeout"]
