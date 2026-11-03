@@ -9,7 +9,10 @@
 [node name="Bomb" type="RigidBody3D" unique_id=1158316834]
 collision_layer = 4
 collision_mask = 3
-gravity_scale = 0.0
+mass = 15.455
+gravity_scale = 5.439
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_jqnvk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=400411012]
@@ -17,3 +20,16 @@ shape = SubResource("SphereShape3D_soy7k")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=810413594]
 mesh = SubResource("SphereMesh_soy7k")
+
+[node name="Lifespan" type="Timer" parent="." unique_id=1571565748]
+wait_time = 6.0
+one_shot = true
+autostart = true
+
+[node name="CollisionKillDelay" type="Timer" parent="." unique_id=1886568347]
+wait_time = 0.001
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Lifespan" to="." method="_on_lifespan_timeout"]
+[connection signal="timeout" from="CollisionKillDelay" to="." method="_on_collision_kill_delay_timeout"]

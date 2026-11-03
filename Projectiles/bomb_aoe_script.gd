@@ -1,4 +1,4 @@
-extends MeshInstance3D
+extends Node3D
 
 var firstGrowthCycleFinished : bool = false
 @onready var AOEMesh : MeshInstance3D = $BombAOEMesh
@@ -6,24 +6,16 @@ var firstGrowthCycleFinished : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	reparent(get_tree().root)
+	$".".scale = Vector3(1.0, 1.0, 1.0)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if firstGrowthCycleFinished == false:
-		AOEMesh.scale.x = lerpf(AOEMesh.scale.x, 4.56, delta * 6)
-		AOEMesh.scale.y = lerpf(AOEMesh.scale.y, 4.56, delta * 6)
-		AOEMesh.scale.z = lerpf(AOEMesh.scale.z, 4.56, delta * 6)
-		if AOEMesh.scale.z == 4.56:
-			firstGrowthCycleFinished = true
-	else:
-		AOEMesh.scale.x = lerpf(AOEMesh.scale.x, 0, delta * 6)
-		AOEMesh.scale.y = lerpf(AOEMesh.scale.y, 0, delta * 6)
-		AOEMesh.scale.z = lerpf(AOEMesh.scale.z, 0, delta * 6)
-	if AOEMesh.scale.z == 0:
-		queue_free()
+	AOEMesh.scale.x = lerpf(AOEMesh.scale.x, 0.1, delta * 10)
+	AOEMesh.scale.y = lerpf(AOEMesh.scale.y, 0.1, delta * 10)
+	AOEMesh.scale.z = lerpf(AOEMesh.scale.z, 0.1, delta * 10)
 
 
 func _on_life_span_timeout() -> void:
-	Hurtbox.queue_free()
+	queue_free()
