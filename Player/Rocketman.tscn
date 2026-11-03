@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://b5uje7eo43owh"]
+
+[ext_resource type="Script" uid="uid://boutjdl3i2ld5" path="res://Player/rocketman_script.gd" id="1_uk33d"]
+[ext_resource type="Script" uid="uid://bulplpv1npv7x" path="res://Player/camera_3d_script.gd" id="3_as8yk"]
+[ext_resource type="Script" uid="uid://cjk3yfwfrsxm0" path="res://Player/camera_pivot_script.gd" id="3_vtawm"]
+[ext_resource type="Script" uid="uid://b687cox8gc1wu" path="res://Player/cannon_pivot_reference_script.gd" id="4_vtawm"]
+[ext_resource type="Script" uid="uid://p6ceytbwobq0" path="res://Player/cannon_pivot_script.gd" id="5_2341e"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_soy7k"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_soy7k"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_as8yk"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vtawm"]
+
+[node name="Rocketman" type="CharacterBody3D" unique_id=2015102740]
+script = ExtResource("1_uk33d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=515430107]
+shape = SubResource("CapsuleShape3D_soy7k")
+
+[node name="Body" type="MeshInstance3D" parent="." unique_id=6640508]
+mesh = SubResource("CapsuleMesh_soy7k")
+
+[node name="CameraPivot" type="Node3D" parent="." unique_id=732654517]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.80983996, 0)
+script = ExtResource("3_vtawm")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" unique_id=266415844]
+shape = SubResource("SphereShape3D_as8yk")
+spring_length = 5.0
+
+[node name="SpringPosition" type="Node3D" parent="CameraPivot/SpringArm3D" unique_id=283368378]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=1453530421 node_paths=PackedStringArray("springArm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25705516, 0.6549988, 2.803679)
+h_offset = 1.025
+script = ExtResource("3_as8yk")
+springArm = NodePath("../SpringArm3D/SpringPosition")
+
+[node name="CannonPivotRotator" type="Node3D" parent="." unique_id=1864296044]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33278942, 0)
+script = ExtResource("4_vtawm")
+
+[node name="CannonPivot" type="Node3D" parent="." unique_id=950363587]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.333, 0)
+script = ExtResource("5_2341e")
+
+[node name="Cannon" type="MeshInstance3D" parent="CannonPivot" unique_id=1139883709]
+transform = Transform3D(0.65, 0, 0, 0, -0.00214271, 0.6499985, 0, -0.9999977, -0.0013927614, 0.9424017, -0.009203911, -0.55237556)
+mesh = SubResource("CylinderMesh_vtawm")
+
+[node name="CannonProjectileSpawn" type="Node3D" parent="CannonPivot/Cannon" unique_id=1227258009]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 1.5893149, 0.005239159)

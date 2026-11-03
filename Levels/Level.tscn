@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://lkidddcdirc8"]
+
+[ext_resource type="PackedScene" uid="uid://b5uje7eo43owh" path="res://Player/Rocketman.tscn" id="1_acdnu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_a8avo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_soy7k"]
+
+[sub_resource type="Environment" id="Environment_soy7k"]
+background_mode = 1
+background_color = Color(0.78352344, 0.7835234, 0.7835234, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.40337542, 0.32505006, 0.47829723, 1)
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_acdnu"]
+
+[sub_resource type="Compositor" id="Compositor_q1cbv"]
+
+[node name="Level" type="Node" unique_id=1884381660]
+
+[node name="LevelFloor" type="StaticBody3D" parent="." unique_id=1833624777]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LevelFloor" unique_id=1229443153]
+mesh = SubResource("BoxMesh_a8avo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelFloor" unique_id=1180949313]
+shape = SubResource("BoxShape3D_soy7k")
+
+[node name="Rocketman" parent="." unique_id=2015102740 instance=ExtResource("1_acdnu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.665472, 1.5, 0.11764908)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=113362324]
+environment = SubResource("Environment_soy7k")
+camera_attributes = SubResource("CameraAttributesPractical_acdnu")
+compositor = SubResource("Compositor_q1cbv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2083088365]
+transform = Transform3D(-0.5205065, -0.59533507, -0.6120859, -0.85385776, 0.36291265, 0.37312397, 4.19519e-08, 0.71684766, -0.69722986, 0, 31.081068, 0)
+
+[node name="Box" type="StaticBody3D" parent="." unique_id=1343625520]
+transform = Transform3D(4.265, 0, 0, 0, 4.265, 0, 0, 0, 4.265, -21.137241, 2.4855394, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Box" unique_id=1158062137]
+mesh = SubResource("BoxMesh_a8avo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box" unique_id=931831951]
+shape = SubResource("BoxShape3D_soy7k")
+
+[node name="Box2" type="StaticBody3D" parent="." unique_id=158635325]
+transform = Transform3D(4.265, 0, 0, 0, 4.265, 0, 0, 0, 4.265, 33.292564, 2.4855394, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Box2" unique_id=1183926338]
+mesh = SubResource("BoxMesh_a8avo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box2" unique_id=781421432]
+shape = SubResource("BoxShape3D_soy7k")
