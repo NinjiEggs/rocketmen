@@ -7,9 +7,12 @@ const JUMP_VELOCITY = 7
 var currentAirJumps : int = maxAirJumps
 var cameraMovement : bool = true
 var moveDisabled : bool = false
+var applyingKnockback : bool = false
 @onready var Camera := $CameraPivot/Camera3D
 @onready var Bomb := preload("res://Projectiles/Bomb.tscn")
 @onready var bombProjectileSpawn := $CannonPivot/Cannon/CannonProjectileSpawn
+@onready var knockbackTimer := $KnockbackTimer
+var currentKnockback : float
 
 func _physics_process(delta: float) -> void:
 	
@@ -42,5 +45,10 @@ func _physics_process(delta: float) -> void:
 	
 	if is_on_floor():
 		currentAirJumps = maxAirJumps
-
+	
+	pass
+	
 	move_and_slide()
+
+func applyKnockback(newTime : float, knockbackSource, Amount : float) -> void:
+	pass

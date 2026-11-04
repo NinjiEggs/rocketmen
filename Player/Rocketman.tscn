@@ -54,3 +54,6 @@ mesh = SubResource("CylinderMesh_vtawm")
 
 [node name="CannonProjectileSpawn" type="Node3D" parent="CannonPivot/Cannon" unique_id=1227258009]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 1.5893149, 0.005239159)
+
+[node name="KnockbackTimer" type="Timer" parent="." unique_id=226439524]
+one_shot = true
