@@ -14,6 +14,14 @@
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_vtawm"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2341e"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("CannonPivot/Cannon:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Rocketman" type="CharacterBody3D" unique_id=2015102740]
 collision_mask = 6
 script = ExtResource("1_uk33d")
@@ -55,5 +63,12 @@ mesh = SubResource("CylinderMesh_vtawm")
 [node name="CannonProjectileSpawn" type="Node3D" parent="CannonPivot/Cannon" unique_id=1227258009]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 1.5893149, 0.005239159)
 
-[node name="KnockbackTimer" type="Timer" parent="." unique_id=226439524]
+[node name="Node3D" type="Node3D" parent="CannonPivot/Cannon/CannonProjectileSpawn" unique_id=1672016239]
+
+[node name="KnockupTimer" type="Timer" parent="." unique_id=226439524]
 one_shot = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=50833379]
+replication_config = SubResource("SceneReplicationConfig_2341e")
+
+[connection signal="timeout" from="KnockupTimer" to="." method="_on_knockup_timer_timeout"]

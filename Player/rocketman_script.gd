@@ -1,25 +1,48 @@
 extends CharacterBody3D
 
+# self
+@onready var Self = $"."
 
-const SPEED = 10.0
-const JUMP_VELOCITY = 7
-@export var maxAirJumps : int = 1
-var currentAirJumps : int = maxAirJumps
-var cameraMovement : bool = true
-var moveDisabled : bool = false
-var applyingKnockback : bool = false
+# camera
 @onready var Camera := $CameraPivot/Camera3D
 @onready var Bomb := preload("res://Projectiles/Bomb.tscn")
-@onready var bombProjectileSpawn := $CannonPivot/Cannon/CannonProjectileSpawn
-@onready var knockbackTimer := $KnockbackTimer
-var currentKnockback : float
+var cameraMovement : bool = true
 
+# cannon movement
+@onready var bombProjectileSpawn := $CannonPivot/Cannon/CannonProjectileSpawn
+
+# knockback
+var applyingKnockback : bool = false
+@onready var knockupTimer := $KnockupTimer
+var knockIntensity : float
+var knockingUp : bool = false
+var lastKnockSource
+
+### upgradeables
+# movement upgradeables
+const SPEED = 10.0
+const JUMP_VELOCITY = 7
+@export var maxAirJumps : int = 2
+var currentAirJumps : int = maxAirJumps
+var moveDisabled : bool = false
+# statistic upgradeables
+var maxHealth : float = 100
+var currentHealth : float = maxHealth
+# weapon upgradeables
+# other upgradeables
+var cannon
+
+func _enter_tree() -> void:
+	set_multiplayer_authority(name.to_int())
+	
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority(): 
+		return
 	
 	if Input.is_action_just_pressed("Shoot"):
 		var bombToSpawn = Bomb.instantiate()
 		bombProjectileSpawn.add_child(bombToSpawn)
-		bombToSpawn.originalParent = $"."
+		
 		
 	# Add the gravity.
 	if not is_on_floor():
@@ -42,6 +65,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
+		
+	if knockingUp == true:
+		velocity.y = knockIntensity
 	
 	if is_on_floor():
 		currentAirJumps = maxAirJumps
@@ -50,5 +76,13 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
-func applyKnockback(newTime : float, knockbackSource, Amount : float) -> void:
-	pass
+func applyKnockup(newTime : float, knockSource, Amount : float) -> void:
+	knockingUp = true
+	knockIntensity = Amount
+	lastKnockSource = knockSource
+	knockupTimer.wait_time = newTime
+	knockupTimer.start()
+
+
+func _on_knockup_timer_timeout() -> void:
+	knockingUp = false

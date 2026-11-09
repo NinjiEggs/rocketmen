@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://lkidddcdirc8"]
 
-[ext_resource type="PackedScene" uid="uid://b5uje7eo43owh" path="res://Player/Rocketman.tscn" id="1_acdnu"]
+[ext_resource type="PackedScene" uid="uid://dmvhq2xv1vlal" path="res://Network/JoinScreenUI.tscn" id="2_q1cbv"]
+[ext_resource type="Script" uid="uid://bebjxx68o7mh5" path="res://Levels/multiplayer_spawner.gd" id="3_24c1m"]
+[ext_resource type="PackedScene" uid="uid://b5uje7eo43owh" path="res://Player/Rocketman.tscn" id="4_wbw1h"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_a8avo"]
 
@@ -18,6 +20,15 @@ ambient_light_color = Color(0.40337542, 0.32505006, 0.47829723, 1)
 
 [node name="Level" type="Node" unique_id=1884381660]
 
+[node name="PlayerSpawnLocation" type="Node3D" parent="." unique_id=567783016]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.991762, 0)
+
+[node name="JoinScreen" parent="." unique_id=927066424 instance=ExtResource("2_q1cbv")]
+offset_left = 704.2185
+offset_top = -36.98371
+offset_right = 704.2185
+offset_bottom = -36.983704
+
 [node name="LevelFloor" type="StaticBody3D" parent="." unique_id=1833624777]
 transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
 collision_layer = 2
@@ -28,9 +39,6 @@ mesh = SubResource("BoxMesh_a8avo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LevelFloor" unique_id=1180949313]
 shape = SubResource("BoxShape3D_soy7k")
-
-[node name="Rocketman" parent="." unique_id=2015102740 instance=ExtResource("1_acdnu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.665472, 1.5, 0.11764908)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=113362324]
 environment = SubResource("Environment_soy7k")
@@ -61,3 +69,9 @@ mesh = SubResource("BoxMesh_a8avo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Box2" unique_id=781421432]
 shape = SubResource("BoxShape3D_soy7k")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=458294706]
+_spawnable_scenes = PackedStringArray("uid://b5uje7eo43owh")
+spawn_path = NodePath("..")
+script = ExtResource("3_24c1m")
+network_player = ExtResource("4_wbw1h")
