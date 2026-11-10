@@ -36,7 +36,8 @@ func _ready() -> void:
 	if is_multiplayer_authority():
 		$CameraPivot/Camera3D.make_current()
 	else:
-		$CameraPivot/Camera3D.set_process_unhandled_input(false)
+		$CameraPivot.set_process_unhandled_input(false)
+		$CannonPivotRotator.set_process_unhandled_input(false)
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
