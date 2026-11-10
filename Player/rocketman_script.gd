@@ -18,6 +18,9 @@ var knockIntensity : float
 var knockingUp : bool = false
 var lastKnockSource
 
+# other
+var currentWeaponIndex : int = 1
+
 ### upgradeables
 # movement upgradeables
 const SPEED = 10.0
@@ -37,7 +40,7 @@ func _ready() -> void:
 		$CameraPivot/Camera3D.make_current()
 	else:
 		$CameraPivot.set_process_unhandled_input(false)
-		$CannonPivotRotator.set_process_unhandled_input(false)
+		$Weapons/CannonPivotRotator.set_process_unhandled_input(false)
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -45,9 +48,20 @@ func _enter_tree() -> void:
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
+		
+	if Input.is_action_just_pressed("Swap"):
+		if currentWeaponIndex >= 2:
+			currentWeaponIndex = 1
+		else:
+			currentWeaponIndex += 1
+		print ("Weapon Index: ",currentWeaponIndex)
 	
 	if Input.is_action_just_pressed("Shoot"):
-		Shoot.rpc_id(1, bombProjectileSpawn.global_position, bombProjectileSpawn.global_rotation)
+		match currentWeaponIndex:
+			1:
+				shootBomb.rpc_id(1, bombProjectileSpawn.global_position, bombProjectileSpawn.global_rotation)
+			2:
+				pass
 		
 	# Add the gravity.
 	if not is_on_floor():
@@ -93,7 +107,7 @@ func _on_knockup_timer_timeout() -> void:
 	knockingUp = false
 
 @rpc("any_peer", "call_local", "reliable") 
-func Shoot(spawn_position: Vector3, spawn_rotation: Vector3) -> void:
+func shootBomb(spawn_position: Vector3, spawn_rotation: Vector3) -> void:
 	if not multiplayer.is_server():
 		return
 	if multiplayer.get_remote_sender_id() != get_multiplayer_authority():
@@ -103,3 +117,6 @@ func Shoot(spawn_position: Vector3, spawn_rotation: Vector3) -> void:
 	bomb.rotation = spawn_rotation
 	
 	get_tree().current_scene.get_node("Projectiles").add_child(bomb, true)
+	
+func Snipe() -> void:
+	pass

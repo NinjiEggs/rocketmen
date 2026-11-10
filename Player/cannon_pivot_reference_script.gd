@@ -11,7 +11,7 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	
-	if $"..".cameraMovement == true:
+	if owner.cameraMovement == true:
 		if event is InputEventMouseMotion:
 			rotation.y -= event.relative.x * mouseSensitivity
 			rotation.y = wrapf(rotation.y, 0.0, TAU)
