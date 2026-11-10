@@ -9,7 +9,7 @@ extends CharacterBody3D
 var cameraMovement : bool = true
 
 # cannon movement
-@onready var bombProjectileSpawn := $CannonPivot/Cannon/CannonProjectileSpawn
+@onready var bombProjectileSpawn := $Weapons/CannonPivot/Cannon/CannonProjectileSpawn
 
 # knockback
 var applyingKnockback : bool = false
@@ -47,9 +47,7 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	if Input.is_action_just_pressed("Shoot"):
-		var bombToSpawn = Bomb.instantiate()
-		bombProjectileSpawn.add_child(bombToSpawn)
-		
+		Shoot.rpc_id(1, bombProjectileSpawn.global_position, bombProjectileSpawn.global_rotation)
 		
 	# Add the gravity.
 	if not is_on_floor():
@@ -93,3 +91,15 @@ func applyKnockup(newTime : float, knockSource, Amount : float) -> void:
 
 func _on_knockup_timer_timeout() -> void:
 	knockingUp = false
+
+@rpc("any_peer", "call_local", "reliable") 
+func Shoot(spawn_position: Vector3, spawn_rotation: Vector3) -> void:
+	if not multiplayer.is_server():
+		return
+	if multiplayer.get_remote_sender_id() != get_multiplayer_authority():
+		return
+	var bomb := Bomb.instantiate()
+	bomb.position = spawn_position
+	bomb.rotation = spawn_rotation
+	
+	get_tree().current_scene.get_node("Projectiles").add_child(bomb, true)

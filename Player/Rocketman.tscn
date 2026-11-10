@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://cjk3yfwfrsxm0" path="res://Player/camera_pivot_script.gd" id="3_vtawm"]
 [ext_resource type="Script" uid="uid://b687cox8gc1wu" path="res://Player/cannon_pivot_reference_script.gd" id="4_vtawm"]
 [ext_resource type="Script" uid="uid://p6ceytbwobq0" path="res://Player/cannon_pivot_script.gd" id="5_2341e"]
+[ext_resource type="Script" uid="uid://bgtq1ws68adq3" path="res://Player/sniper_pivot_reference_script.gd" id="6_8xbvg"]
+[ext_resource type="Script" uid="uid://c45w3ogyp6a7p" path="res://Player/sniper_pivot_script.gd" id="7_jtw23"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_soy7k"]
 
@@ -48,22 +50,34 @@ h_offset = 1.025
 script = ExtResource("3_as8yk")
 springArm = NodePath("../SpringArm3D/SpringPosition")
 
-[node name="CannonPivotRotator" type="Node3D" parent="." unique_id=1864296044]
+[node name="Weapons" type="Node3D" parent="." unique_id=2138776252]
+
+[node name="CannonPivotRotator" type="Node3D" parent="Weapons" unique_id=1864296044]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.661137, 0)
 script = ExtResource("4_vtawm")
 
-[node name="CannonPivot" type="Node3D" parent="." unique_id=950363587]
+[node name="CannonPivot" type="Node3D" parent="Weapons" unique_id=950363587]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.66134757, 0)
 script = ExtResource("5_2341e")
 
-[node name="Cannon" type="MeshInstance3D" parent="CannonPivot" unique_id=1139883709]
+[node name="Cannon" type="MeshInstance3D" parent="Weapons/CannonPivot" unique_id=1139883709]
 transform = Transform3D(0.65, 0, 0, 0, -0.00214271, 0.6499985, 0, -0.9999977, -0.0013927614, 0.9424017, -0.009203911, -0.55237556)
 mesh = SubResource("CylinderMesh_vtawm")
 
-[node name="CannonProjectileSpawn" type="Node3D" parent="CannonPivot/Cannon" unique_id=1227258009]
+[node name="CannonProjectileSpawn" type="Node3D" parent="Weapons/CannonPivot/Cannon" unique_id=1227258009]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 1.5893149, 0.005239159)
 
-[node name="Node3D" type="Node3D" parent="CannonPivot/Cannon/CannonProjectileSpawn" unique_id=1672016239]
+[node name="SniperPivotRotator" type="Node3D" parent="Weapons" unique_id=1007188831]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.661137, 0)
+script = ExtResource("6_8xbvg")
+
+[node name="SniperPivot" type="Node3D" parent="Weapons" unique_id=1522030338]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.66134757, 0)
+script = ExtResource("7_jtw23")
+
+[node name="Sniper" type="MeshInstance3D" parent="Weapons/SniperPivot" unique_id=283850990]
+transform = Transform3D(0.4, 0, 0, 0, -0.0029890803, 0.39999908, 0, -1.3949968, -0.000857084, 0.9424017, -0.009203911, -0.55237556)
+mesh = SubResource("CylinderMesh_vtawm")
 
 [node name="KnockupTimer" type="Timer" parent="." unique_id=226439524]
 one_shot = true

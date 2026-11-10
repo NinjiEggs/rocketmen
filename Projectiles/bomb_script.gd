@@ -6,8 +6,7 @@ var bombAOEDamage : float = 30
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	reparent(get_tree().root)
-	$".".scale = Vector3(1.0, 1.0, 1.0)
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
