@@ -6,6 +6,14 @@
 
 [sub_resource type="SphereMesh" id="SphereMesh_soy7k"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jqnvk"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 0
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 0
+
 [node name="Bomb" type="RigidBody3D" unique_id=1158316834]
 collision_layer = 4
 collision_mask = 3
@@ -29,6 +37,9 @@ autostart = true
 [node name="CollisionKillDelay" type="Timer" parent="." unique_id=1886568347]
 wait_time = 0.001
 one_shot = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=431713414]
+replication_config = SubResource("SceneReplicationConfig_jqnvk")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Lifespan" to="." method="_on_lifespan_timeout"]

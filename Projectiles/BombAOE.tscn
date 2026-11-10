@@ -6,6 +6,14 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_soy7k"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7c8jp"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 0
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 0
+
 [node name="BombAOE" type="Node3D" unique_id=262648762]
 script = ExtResource("1_7c8jp")
 
@@ -24,6 +32,9 @@ shape = SubResource("SphereShape3D_soy7k")
 wait_time = 0.1
 one_shot = true
 autostart = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=37965373]
+replication_config = SubResource("SceneReplicationConfig_7c8jp")
 
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="timeout" from="LifeSpan" to="." method="_on_life_span_timeout"]
