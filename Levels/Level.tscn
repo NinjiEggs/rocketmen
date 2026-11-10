@@ -1,8 +1,6 @@
 [gd_scene format=3 uid="uid://lkidddcdirc8"]
 
 [ext_resource type="PackedScene" uid="uid://dmvhq2xv1vlal" path="res://Network/JoinScreenUI.tscn" id="2_q1cbv"]
-[ext_resource type="Script" uid="uid://bebjxx68o7mh5" path="res://Levels/multiplayer_spawner.gd" id="3_24c1m"]
-[ext_resource type="PackedScene" uid="uid://b5uje7eo43owh" path="res://Player/Rocketman.tscn" id="4_wbw1h"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_a8avo"]
 
@@ -73,5 +71,3 @@ shape = SubResource("BoxShape3D_soy7k")
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=458294706]
 _spawnable_scenes = PackedStringArray("uid://b5uje7eo43owh")
 spawn_path = NodePath("..")
-script = ExtResource("3_24c1m")
-network_player = ExtResource("4_wbw1h")
