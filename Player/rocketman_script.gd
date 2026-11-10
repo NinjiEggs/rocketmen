@@ -32,6 +32,10 @@ var currentHealth : float = maxHealth
 # other upgradeables
 var cannon
 
+func _ready() -> void:
+	if is_multiplayer_authority():
+		$CameraPivot/Camera3D.make_current()
+
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 	

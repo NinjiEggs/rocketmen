@@ -20,6 +20,7 @@ func _on_server_pressed() -> void:
 	var err := NetworkManager.host()
 	if err == OK:
 		print("Hosting!")
+		get_parent().add_player(1)
 		queue_free()
 	else:
 		print("Couldn't host: ", error_string(err))
