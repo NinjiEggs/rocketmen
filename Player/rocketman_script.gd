@@ -48,20 +48,37 @@ func _enter_tree() -> void:
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
+	
+	if Input.is_action_pressed("Aim"):
+		match currentWeaponIndex:
+			1:
+				$CameraPivot/Camera3D.make_current()
+			2:
+				$Weapons/SniperPivot/Sniper/Camera3D.make_current()
+	else:
+		$CameraPivot/Camera3D.make_current()
+	
 		
 	if Input.is_action_just_pressed("Swap"):
-		if currentWeaponIndex >= 2:
+		if currentWeaponIndex == 1:
+			currentWeaponIndex = 2
+			$Weapons/CannonPivot.visible = false
+			$Weapons/SniperPivot.visible = true
+			print ("Weapon Index: ",currentWeaponIndex)
+		elif currentWeaponIndex == 2:
 			currentWeaponIndex = 1
-		else:
-			currentWeaponIndex += 1
-		print ("Weapon Index: ",currentWeaponIndex)
+			$Weapons/CannonPivot.visible = true
+			$Weapons/SniperPivot.visible = false
+			print ("Weapon Index: ",currentWeaponIndex)
 	
 	if Input.is_action_just_pressed("Shoot"):
 		match currentWeaponIndex:
 			1:
 				shootBomb.rpc_id(1, bombProjectileSpawn.global_position, bombProjectileSpawn.global_rotation)
 			2:
-				pass
+				if $Weapons/SniperPivot/Sniper/RayCast3D.is_colliding():
+					var collidingPlayer = $Weapons/SniperPivot/Sniper/RayCast3D.get_collider()
+					print ("SNIPE!")
 		
 	# Add the gravity.
 	if not is_on_floor():
@@ -91,8 +108,6 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		currentAirJumps = maxAirJumps
 	
-	pass
-	
 	move_and_slide()
 
 func applyKnockup(newTime : float, knockSource, Amount : float) -> void:
@@ -118,5 +133,3 @@ func shootBomb(spawn_position: Vector3, spawn_rotation: Vector3) -> void:
 	
 	get_tree().current_scene.get_node("Projectiles").add_child(bomb, true)
 	
-func Snipe() -> void:
-	pass

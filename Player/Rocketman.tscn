@@ -73,11 +73,20 @@ script = ExtResource("6_8xbvg")
 
 [node name="SniperPivot" type="Node3D" parent="Weapons" unique_id=1522030338]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.66134757, 0)
+visible = false
 script = ExtResource("7_jtw23")
 
 [node name="Sniper" type="MeshInstance3D" parent="Weapons/SniperPivot" unique_id=283850990]
 transform = Transform3D(0.4, 0, 0, 0, -0.0029890803, 0.39999908, 0, -1.3949968, -0.000857084, 0.9424017, -0.009203911, -0.55237556)
 mesh = SubResource("CylinderMesh_vtawm")
+
+[node name="Camera3D" type="Camera3D" parent="Weapons/SniperPivot/Sniper" unique_id=1863747645]
+transform = Transform3D(2.5, 0, 0, 0, -1.0745134e-07, -0.716846, 0, 2.5000002, -3.7485734e-07, 0, -0.34992963, 0.9382781)
+fov = 91.0
+near = 0.001
+
+[node name="RayCast3D" type="RayCast3D" parent="Weapons/SniperPivot/Sniper" unique_id=1776288260]
+transform = Transform3D(1, 0, 0, 0, -100, -1.509958e-07, 0, 1.509958e-05, -1, 0, 0.987683, 0.007380843)
 
 [node name="KnockupTimer" type="Timer" parent="." unique_id=226439524]
 one_shot = true
