@@ -12,6 +12,8 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	
+	if not owner.is_multiplayer_authority():
+		return
 	if owner.cameraMovement == true:
 		if event is InputEventMouseMotion:
 			rotation.y -= event.relative.x * mouseSensitivity
